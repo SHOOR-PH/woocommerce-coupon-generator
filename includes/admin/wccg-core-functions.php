@@ -127,15 +127,29 @@ function wccg_get_random_coupon() {
 
 	// Generate unique coupon code
 	$random_coupon = '';
-	$length        = 12;
-	$charset       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-	$count         = strlen( $charset );
+
+        $options = apply_filters( 'woocommerce-coupon-generator-options-filter',
+                array( 'length' => 12,
+                        'charset' => 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789',
+                        'separator' => '-',
+                        'segment-size' => 4,
+                        'prefix' => '',
+                        'postfix' => '',
+                )
+        );
+        $length        = $options['length'];
+        $charset       = $options['charset'];
+        $separator     = $options['separator'];
+        $segment_size  = $options['segment_size'];
+        $prefix        = $options['prefix'];
+        $postfix       = $options['postfix'];
+        $count         = strlen( $charset );
 
 	while ( $length-- ) {
 		$random_coupon .= $charset[ mt_rand( 0, $count-1 ) ];
 	}
 
-	$random_coupon = implode( '-', str_split( strtoupper( $random_coupon ), 4 ) );
+        $random_coupon = $prefix . implode( '-', str_split( strtoupper( $random_coupon ), $segment_size ) ) . $postfix;
 
 	// Ensure coupon code is correctly formatted with WC Core filter
 	$coupon_code = apply_filters( 'woocommerce_coupon_code', $random_coupon );
