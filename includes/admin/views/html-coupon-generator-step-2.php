@@ -24,9 +24,26 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 								<div class="panel woocommerce_options_panel" style="display: block;">
 
 									<?php wp_nonce_field( 'wccg_generate_coupons', 'generate_coupons_nonce' ); ?>
+									<p class="form-field coupon_code_prefix ">
+										<label for="coupon_code_prefix"><?php _e( 'Coupon Code Prefix', 'coupon-generator-for-woocommerce' ); ?></label>
+										<input type="text" autofocus class="short" style="width: 200px;" name="coupon_code_prefix" id="coupon_code_prefix" placeholder="bkout">
+									</p>
+									<p class="form-field coupon_code_suffix ">
+										<label for="coupon_code_suffix"><?php _e( 'Coupon Code Suffix', 'coupon-generator-for-woocommerce' ); ?></label>
+										<input type="text" autofocus class="short" style="width: 200px;" name="coupon_code_suffix" id="coupon_code_suffix" placeholder="plat">
+									</p>
+									<p class="form-field coupon_code_separator ">
+										<label for="coupon_code_separator"><?php _e( 'Coupon Code Separator', 'coupon-generator-for-woocommerce' ); ?></label>
+										<input type="text" autofocus class="short" style="width: 200px;" name="coupon_code_separator" id="coupon_code_separator" placeholder="any special character">
+									</p>
+									<p class="form-field coupon_code_character_limit ">
+										<label for="coupon_code_character_limit"><?php _e( 'Coupon Code Character Limit', 'coupon-generator-for-woocommerce' ); ?></label>
+										<input type="number" min="1" class="short" style="width: 200px;" name="coupon_code_character_limit" id="coupon_code_character_limit" min="1" max="16" value="1" placeholder="10">
+										<img class="help_tip" data-tip='<?php _e( 'Coupon code character limit', 'coupon-generator-for-woocommerce' ); ?>' src="<?php echo WC()->plugin_url(); ?>/assets/images/help.png" height="16" width="16" />
+									</p>
 									<p class="form-field number_of_coupons ">
 										<label for="number_of_coupons"><?php _e( 'Number of coupons', 'coupon-generator-for-woocommerce' ); ?></label>
-										<input type="number" min="1" autofocus class="short" style="width: 200px;" name="number_of_coupons" id="coupon_quantity" value="1" placeholder="10">
+										<input type="number" min="1" class="short" style="width: 200px;" name="number_of_coupons" id="coupon_quantity" value="1" placeholder="10">
 										<img class="help_tip" data-tip='<?php _e( 'Number of coupons to generate in this batch', 'coupon-generator-for-woocommerce' ); ?>' src="<?php echo WC()->plugin_url(); ?>/assets/images/help.png" height="16" width="16" />
 									</p>
 

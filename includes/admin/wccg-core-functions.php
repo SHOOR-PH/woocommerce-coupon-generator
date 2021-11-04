@@ -23,6 +23,10 @@ function wccg_generate_coupons( $number, $args = array() ) {
 		return;
 	}
 
+	if ( ! isset( $args['coupon_code_separator'] ) || $args[ 'coupon_code_separator' ] === '*' ) {
+		return;
+	}
+
 	global $wpdb;
 	$insert_coupon_ids = array();
 
@@ -32,7 +36,15 @@ function wccg_generate_coupons( $number, $args = array() ) {
 	$number_of_coupons = absint( $number );
 	for ( $i = 0; $i < $number_of_coupons; $i++ ) {
 
-		$coupon_code = wccg_get_random_coupon();
+		$coupon_code = wccg_get_random_coupon( $args[ 'coupon_code_character_limit' ] );
+
+		if( ! empty( $args[ 'coupon_code_prefix' ] ) ){
+			$coupon_code = $args[ 'coupon_code_prefix' ] . $args[ 'coupon_code_separator' ] . $coupon_code;
+		}
+
+		if( ! empty( $args[ 'coupon_code_suffix' ] ) ){
+			$coupon_code = $coupon_code . $args[ 'coupon_code_separator' ] . $args[ 'coupon_code_suffix' ];
+		}
 
 		// Insert coupon post
 		$wpdb->query( $wpdb->prepare( "INSERT INTO $wpdb->posts SET
@@ -123,11 +135,14 @@ function wccg_generate_coupons( $number, $args = array() ) {
  *
  * @return string Random coupon code.
  */
-function wccg_get_random_coupon() {
+function wccg_get_random_coupon( $length ) {
 
 	// Generate unique coupon code
 	$random_coupon = '';
-	$length        = 12;
+	if( $length < 1 ){
+		$length = 1;
+	}
+	// $length = 12;
 	$charset       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
 	$count         = strlen( $charset );
 
@@ -135,15 +150,15 @@ function wccg_get_random_coupon() {
 		$random_coupon .= $charset[ mt_rand( 0, $count-1 ) ];
 	}
 
-	$random_coupon = implode( '-', str_split( strtoupper( $random_coupon ), 4 ) );
+	// $random_coupon = implode( '-', str_split( strtoupper( $random_coupon ) ) );
 
 	// Ensure coupon code is correctly formatted with WC Core filter
-	$coupon_code = apply_filters( 'woocommerce_coupon_code', $random_coupon );
+	// $coupon_code = apply_filters( 'woocommerce_coupon_code', $random_coupon );
 
 	// Additional filter that only executes for this plugin, not for other WC Core coupons
-	$random_code = apply_filters( 'woocommerce_coupon_generator_random_coupon_code', $coupon_code );
+	// $random_code = apply_filters( 'woocommerce_coupon_generator_random_coupon_code', $coupon_code );
 
-	return $random_code;
+	return $random_coupon;
 }
 
 
