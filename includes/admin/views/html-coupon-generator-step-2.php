@@ -26,11 +26,11 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 									<?php wp_nonce_field( 'wccg_generate_coupons', 'generate_coupons_nonce' ); ?>
 									<p class="form-field coupon_code_prefix ">
 										<label for="coupon_code_prefix"><?php _e( 'Coupon Code Prefix', 'coupon-generator-for-woocommerce' ); ?></label>
-										<input type="text" autofocus class="short" style="width: 200px;" name="coupon_code_prefix" id="coupon_code_prefix" placeholder="bkout">
+										<input type="text" autofocus class="short" style="width: 200px;" name="coupon_code_prefix" id="coupon_code_prefix" placeholder="0917">
 									</p>
 									<p class="form-field coupon_code_suffix ">
 										<label for="coupon_code_suffix"><?php _e( 'Coupon Code Suffix', 'coupon-generator-for-woocommerce' ); ?></label>
-										<input type="text" autofocus class="short" style="width: 200px;" name="coupon_code_suffix" id="coupon_code_suffix" placeholder="plat">
+										<input type="text" autofocus class="short" style="width: 200px;" name="coupon_code_suffix" id="coupon_code_suffix" placeholder="PLAT">
 									</p>
 									<p class="form-field coupon_code_separator ">
 										<label for="coupon_code_separator"><?php _e( 'Coupon Code Separator', 'coupon-generator-for-woocommerce' ); ?></label>
